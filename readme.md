@@ -24,5 +24,5 @@ O sistema implementa verificações para ignorar registros deletados (softdelete
 
 Existem também verificações para o CPF na hora do cadastro de usuários e verificações relacionadas ao RENAVAM dos veículos cadastrados.
 
-
-Durante o desenvolvimento, eu utilizei o serviço MailTrap como servidor SMTP para envio dos e-mails.
+Durante o desenvolvimento, eu utilizei o serviço MailTrap para envio dos e-mails.
+Recomendo o uso dele para teste pois ele atua no envio e recebimento das mensagens para uma caixa de correio "fictícia", onde você pode visualizá-las em um cliente de e-mail verdadeiro. Essa abordagem tem a vantagem de permitir que você inspecione os e-mails finais no visualizador de mensagens do Mailtrap.
