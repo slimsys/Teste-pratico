@@ -12,6 +12,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -19,10 +22,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome/css/all.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-laravel navbar-static-top navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-laravel navbar-static-top navbar-dark bg-dark py-3">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name','Federal ST') }} | Administrador
@@ -39,9 +46,12 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+                    <li><a class="nav-link" href="{{ route('admin.home') }}">Dashboard</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.vehicles.index') }}">Veículos</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.users.index') }}">Usuários</a></li>
                     <!-- Authentication Links -->
                     @guest
-                    <li><a class="nav-link" href="{{ route('admin.login') }}">{{trans('auth.login') }}</a></li>
+                    <li><a class="nav-link" href="{{ route('login') }}">{{trans('auth.login') }}</a></li>
                     @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -49,13 +59,13 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                            <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ trans('auth.logout') }}
                             </a>
 
-                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </div>
@@ -66,7 +76,20 @@
         </div>
     </nav>
 
-    <main class="py-4">
+    <main class="py-0">
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Administrador</h1>
+                </div>
+
+                <div class="col-6 text-end">
+                    @yield('pageTitle')
+                </div>
+            </div>
+        </div>
+
         @yield('content')
     </main>
 </div>

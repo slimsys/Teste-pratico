@@ -1,34 +1,41 @@
 <?php
 
-function layout()
-{
-    return \Request::is('admin/*') ? 'layouts.admin' : 'layouts.app';
-}
+namespace App;
+use App\Vehicle;
+use Validator;
 
-function isAdmin()
-{
-    return \Request::is('admin/*') ? true : false;
-}
+class Helper {
 
-function encodeBase64($texto)
-{
-    return  isset($texto) ? base64_encode($texto) : null;
-}
+    public static function layout()
+    {
+        return \Request::is('admin/*') ? 'layouts.admin' : 'layouts.app';
+    }
 
-function decodeBase64($texto)
-{
-    return  isset($texto) ? base64_decode($texto) : null;
-}
+    public static function isAdmin()
+    {
+        return \Request::is('admin/*') ? true : false;
+    }
 
-function mask(String $mask, String $str) {
-    $str = str_replace(" ","",$str);
+    public static function encodeBase64($texto)
+    {
+        return  isset($texto) ? base64_encode($texto) : null;
+    }
 
-    for($i=0;$i<strlen($str);$i++)
-        $mask[strpos($mask,"#")] = $str[$i];
+    public static function decodeBase64($texto)
+    {
+        return  isset($texto) ? base64_decode($texto) : null;
+    }
 
-    return $mask;
-}
+    public static function mask(String $mask, String $str) {
+        $str = str_replace(" ","",$str);
 
-function mask_cpf(String $str) {
-    return mask("###.###.###-##", $str);
+        for($i=0;$i<strlen($str);$i++)
+            $mask[strpos($mask,"#")] = $str[$i];
+
+        return $mask;
+    }
+
+    public static function mask_cpf(String $str) {
+        return mask("###.###.###-##", $str);
+    }
 }

@@ -1,0 +1,22 @@
+#dashboard_div .col-6 {
+	border: 1px solid rgba(120,120,120,0.5);
+	padding: 15px;
+}
+
+#dashboard_div .col-6:nth-child(odd) {
+	border-right: none;
+}
+
+#dashboard_div h3 {
+	font-family: monospace;
+}
+
+#dashboard_div h6 {
+	font-weight: bold;
+	font-size: 1.4em;
+	font-family: monospace;
+}
+
+table {
+	text-align: center;
+}

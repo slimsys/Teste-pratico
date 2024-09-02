@@ -15,10 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['verify' => true]);
+
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'admin', 'as'=>'admin.'], function () {
+Route::group(['middleware' => ['auth', 'permission.admin'], 'prefix'=>'admin', 'as'=>'admin.'], function () {
     //Authentication Rotes
     $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
     $this->post('login', 'Auth\LoginController@login');
@@ -30,5 +32,10 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function () {
     $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    $this->get('/home', 'Admin\AdminController@index')->name('home');
+    //$this->get('/home', 'Admin\AdminController@index')->name('home');
+    //$this->get('/home', 'HomeController@index')->name('home');
+
+    $this->resource('users', 'Admin\UserController')->except('show');
+    $this->resource('vehicles', 'Admin\VehicleController')->except('show');
 });

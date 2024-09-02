@@ -3,12 +3,15 @@
 namespace App;
 
 use App\Notifications\MyResetPasswordNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use SoftDeletes;
     const ROLE_USER = 1;
     const ROLE_ADMIN = 2;
 
@@ -37,5 +40,14 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new MyResetPasswordNotification($token));
+    }
+
+    public function vehicles() {
+        return $this->hasMany('App\Vehicle', 'proprietario', 'id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\CustomVerifyEmail(\Auth::user()));
     }
 }
