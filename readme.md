@@ -1,14 +1,22 @@
 # Teste prático - Federal Soluções Técnicas
 
 ## Instalação 
-* Execute composer install
-* Renomeie o arquivo .env.example para .env
+```
+git clone https://github.com/slimsys/Teste-pratico
+cd Teste-pratico
+composer install
+cp .env.example .env 
+```
+
 * Configure o acesso ao servidor SMTP no arquivo .env
 * Configure o acesso do seu banco de dados postgree no arquivo .env
-* Execute php artisan key:generate
-* Execute php artisan migrate
-* Execute php artisan db:seed
 
+```
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
 
 ## Resumo
 
