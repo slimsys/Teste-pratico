@@ -85,9 +85,11 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        if($request->delete_vehicles) {
-            foreach($user->vehicles()->get() as $vehicle)
+        foreach($user->vehicles()->get() as $vehicle) {
+            if($request->delete_vehicles)
                 $vehicle->delete();
+            else
+                $vehicle->update(['proprietario' => NULL]);
         }
         
         $user->delete();
