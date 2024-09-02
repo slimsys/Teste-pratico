@@ -20,7 +20,7 @@ class CustomVerifyEmail extends VerifyEmail
      */
     public function __construct($user = '')
     {
-        $this->user = $user ?: Auth::user();
+        $this->user = $user ?: \Auth::user();
     }
 
     /**
@@ -47,7 +47,7 @@ class CustomVerifyEmail extends VerifyEmail
                     ->subject('Verifique seu e-mail')
                     ->line('Por favor, clique no link abaixo para finalizar seu cadastro.')
                     ->action('Clique aqui', $this->verificationUrl($notifiable))
-                    ->line('Obrigado!');
+                    ->salutation('Obrigado!');
     }
 
     /**

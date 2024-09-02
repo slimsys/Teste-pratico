@@ -19,12 +19,11 @@ class MyResetPasswordNotification extends ResetPassword
     {
         return (new MailMessage())
             ->error()
-            ->greeting(trans('email.greeting'))
-            ->line( trans('email.motivo'))
-            ->action( 'Reset Password', url(config('app.url').route('password.reset', $this->token, false)))
-            ->line(trans('email.notaction'))
-            ->subject(trans('email.subject'))
-            ->salutation(trans('email.salutation'));
+            ->greeting('Olá!')
+            ->line('Clique no botão abaixo para alterar sua senha!')
+            ->action( 'Alterar Senha', url(route('password.reset', $this->token, false)))
+            ->subject('Alterar senha')
+            ->salutation('Obrigado!');
     }
 
 }

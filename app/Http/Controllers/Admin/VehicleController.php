@@ -40,9 +40,12 @@ class VehicleController extends Controller
      */
     public function store(VehicleValidate $request)
     {
-        //var_dump($request->all());
-        if($request->validated())
+        if($request->validated()) {
             Vehicle::create($request->all());
+            
+            if($request->get('proprietario'))
+                User::find($request->get('proprietario'))->notify(new CarModification);
+        }
         
         return redirect()->route('admin.vehicles.index');
     }
@@ -92,7 +95,11 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         $vehicle->delete();
-        $vehicle->user()->get()[0]->notify(new CarModification);
+
+        if($vehicle->proprietario) {
+            $vehicle->user()->get()[0]->notify(new CarModification);
+        }
+
         return redirect()->route('admin.vehicles.index');
     }
 }
